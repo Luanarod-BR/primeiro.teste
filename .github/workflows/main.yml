@@ -12,7 +12,7 @@ jobs: #Agregam vários trabalhos de execuções dentro do pipeline.
       #matrix:
         #node_version: ['8', '10', '12']
         #os: [ubuntu-latest, windows-latest, macOS-latest]
-        #[ubuntu-latest, windows-latest, macOS-latest] Versões do sistema operacional
+        #[ubuntu-latest, windows-latest, macOS-latest] Versões do sistema operacional.
 
 
     steps: #Passos.
