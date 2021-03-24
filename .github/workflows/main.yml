@@ -1,25 +1,49 @@
-name: CI
+name: DotnetCore
+#name: CI
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: #Trigger de onde vai rodar.
 
-jobs:
-  build:
-    runs-on: ${{ matrix.os }} #Roda o papeline no sistema operacional Matrix
-    strategy: #A estratégica de implantação de a de Matrix
-      matrix:
-        node_version: ['8', '10', '12']
-        os: [ubuntu-latest, windows-latest, macOS-latest] #Versões do sistema operacional
+jobs: #Agregam vários trabalhos de execuções dentro do pipeline.
+  build: # É o 1º Job dentro do pipeline (Pode ter outro nome, o que mais fizer sentido).
+    runs-on: ubuntu-latest #Onde roda o pipeline no sistema operacional Matrix
+    
+    #strategy: #A estratégica de implantação de a de Matrix
+      #matrix:
+        #node_version: ['8', '10', '12']
+        #os: [ubuntu-latest, windows-latest, macOS-latest]
+        #[ubuntu-latest, windows-latest, macOS-latest] Versões do sistema operacional
 
 
-    steps:
+    steps: #Passos.
       - uses: actions/checkout@v2
 
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Setup .NET Core
+        #run: echo Hello, world!
+        uses: actions/setup-dotnet@v1
+        with: 
+         dotnet-version: 5.0.100
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      #- name: Run a multi-line script
+      - name: Install dependicies
+       # run: | #Linha de comando
+        #  echo Add other actions to build,
+       #   echo test, and deploy your project.
+        run: dotnet restore
+       
+     - name: Build
+       run: dotnet build --configuration Release --no-restore
+       
+       - name: Test
+       run: dotnet test --no-restore --verbosity normal
+       
+       - name: Dotnet Publish
+       run: dotnet publish --configuration Release -o ${{ github.workspace }}/demo
+       
+       - name: Upload Artifact
+       uses: actions/upload-artifact@v1
+       with:
+        name: app
+        path: ${{ github.workspace }}//demo
+        
+       
