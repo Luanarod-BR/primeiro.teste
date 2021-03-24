@@ -5,7 +5,12 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }} #Roda o papeline no sistema operacional Matrix
+    strategy: #A estratégica de implantação de a de Matrix
+      matrix:
+        node_version: ['8', '10', '12']
+        os: [ubuntu-latest, windows-latest, macOS-latest] #Versões do sistema operacional
+
 
     steps:
       - uses: actions/checkout@v2
