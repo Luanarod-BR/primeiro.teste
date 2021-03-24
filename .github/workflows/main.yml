@@ -31,18 +31,18 @@ jobs: #Agregam vários trabalhos de execuções dentro do pipeline.
        #   echo test, and deploy your project.
         run: dotnet restore
        
-          - name: Build
-            run: dotnet build --configuration Release --no-restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
        
-            - name: Test
-              run: dotnet test --no-restore --verbosity normal
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
        
-                             - name: Dotnet Publish
-                                run: dotnet publish --configuration Release -o ${{ github.workspace }}/demo
+      - name: Dotnet Publish
+        run: dotnet publish --configuration Release -o ${{ github.workspace }}/demo
        
-                           - name: Upload Artifact
-                             uses: actions/upload-artifact@v1
-                             with: 
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with: 
                              name: app
                              path: ${{ github.workspace }}//demo
         
