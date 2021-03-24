@@ -31,7 +31,7 @@ jobs: #Agregam vários trabalhos de execuções dentro do pipeline.
        #   echo test, and deploy your project.
         run: dotnet restore
        
-          - name:Build
+          - name: Build
             run:dotnet build --configuration Release --no-restore
        
             - name:Test
