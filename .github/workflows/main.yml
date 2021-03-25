@@ -27,7 +27,7 @@ jobs: #Agregam vários trabalhos de execuções dentro do pipeline.
       #- name: Run a multi-line script
       - name: Install dependencies
        # run: | #Linha de comando
-        #  echo Add other actions to build,
+        #  echo Add other actions to build.
        #   echo test, and deploy your project.
         run: dotnet restore
        
